@@ -1,4 +1,4 @@
-package com.studys.RestAPI;
+package com.studys.restapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
