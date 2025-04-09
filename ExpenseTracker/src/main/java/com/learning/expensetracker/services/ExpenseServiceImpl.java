@@ -6,9 +6,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService{
+
+    private static final AtomicLong idCounter = new AtomicLong();
+
     @Override
     public List<Expense> getExpenseByDay(String date) {
         return ExpenseDataLoader.getExpenses().stream()
@@ -36,6 +40,23 @@ public class ExpenseServiceImpl implements ExpenseService{
     public Optional<Expense> getExpenseById(Long id) {
         return ExpenseDataLoader.getExpenses().stream().filter(
                 expense -> expense.getId().equals(id)).findFirst();
+    }
+
+    @Override
+    public Expense addExpense(Expense expense) {
+         expense.setId(idCounter.incrementAndGet());
+         ExpenseDataLoader.getExpenses().add(expense);
+         return expense;
+    }
+
+    @Override
+    public boolean updateExpense(Expense expense) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteExpense(Expense expense) {
+        return false;
     }
 
 

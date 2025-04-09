@@ -10,4 +10,7 @@ public interface ExpenseService {
     List<Expense> getExpenseByCategoryAndMonth(String category, String month);
     List<String> getAllExpenseCategories();
     Optional<Expense> getExpenseById(Long id);
+    Expense addExpense(Expense expense);
+    boolean updateExpense(Expense expense);
+    boolean deleteExpense(Expense expense);
 }

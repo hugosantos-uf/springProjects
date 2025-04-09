@@ -4,10 +4,7 @@ import com.learning.expensetracker.model.Expense;
 import com.learning.expensetracker.services.ExpenseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +40,12 @@ public class ExpenseController {
            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
        }
        return ResponseEntity.ok(categories);
+    }
+
+    @PostMapping("/expenses")
+    public ResponseEntity<Expense> addExpense(@RequestBody Expense expense){
+        Expense newExpense = expenseService.addExpense(expense);
+        return new ResponseEntity<>(newExpense, HttpStatus.CREATED);
     }
 }
 
