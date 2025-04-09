@@ -50,12 +50,23 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
-    public boolean updateExpense(Expense expense) {
+    public boolean updateExpense(Expense updatedExpense) {
+        Optional<Expense> existingExpense = getExpenseById(updatedExpense.getId());
+        if(existingExpense.isPresent()){
+            ExpenseDataLoader.getExpenses().remove(existingExpense.get());
+            ExpenseDataLoader.getExpenses().add(updatedExpense);
+            return true;
+        }
         return false;
     }
 
     @Override
-    public boolean deleteExpense(Expense expense) {
+    public boolean deleteExpense(Long id) {
+        Optional<Expense> existingExpense = getExpenseById(id);
+        if(existingExpense.isPresent()){
+            ExpenseDataLoader.getExpenses().remove(existingExpense.get());
+            return true;
+        }
         return false;
     }
 

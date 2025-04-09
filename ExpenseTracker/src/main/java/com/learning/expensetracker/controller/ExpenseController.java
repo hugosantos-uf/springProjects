@@ -47,6 +47,27 @@ public class ExpenseController {
         Expense newExpense = expenseService.addExpense(expense);
         return new ResponseEntity<>(newExpense, HttpStatus.CREATED);
     }
+
+    @PutMapping("/expenses/{id}")
+    public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @RequestBody Expense expense){
+        expense.setId(id);
+        boolean isUpdated = expenseService.updateExpense(expense);
+        if(isUpdated){
+            return new ResponseEntity<>(expense, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/expense/{id}")
+    public ResponseEntity<String> deleteExpense(@PathVariable Long id){
+        boolean isDeleted = expenseService.deleteExpense(id);
+        if(isDeleted){
+            return new ResponseEntity<>("Expense deleted", HttpStatus.NO_CONTENT);
+        }else{
+            return new ResponseEntity<>("Expense not found", HttpStatus.NOT_FOUND);
+        }
+    }
 }
 
 
